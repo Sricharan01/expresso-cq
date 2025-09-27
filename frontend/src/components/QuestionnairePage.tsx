@@ -78,7 +78,7 @@ export function QuestionnairePage({ onComplete, userId }: QuestionnairePageProps
     } else {
       setIsLoading(true);
       try {
-        await axios.post('http://localhost:5000/api/user/questionnaire', { userId, answers });
+        await axios.post(`${import.meta.env.VITE_API_BASE_URL}/api/user/questionnaire`, { userId, answers });
         onComplete(answers.nickname || "friend");
       } catch (error) {
         alert('Failed to save questionnaire data.');

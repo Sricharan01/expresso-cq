@@ -41,7 +41,7 @@ export function PostDetailPage({ postId, userId, onBack }: PostDetailPageProps) 
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    axios.get(`http://localhost:5000/api/posts/${postId}`)
+    axios.get(`${import.meta.env.VITE_API_BASE_URL}/api/posts/${postId}`)
       .then(res => {
         setPost(res.data);
         setIsLoading(false);
@@ -55,7 +55,7 @@ export function PostDetailPage({ postId, userId, onBack }: PostDetailPageProps) 
   const handleVote = async (voteType: 'up' | 'down') => {
     if (!post) return;
     try {
-        const response = await axios.post(`http://localhost:5000/api/posts/${post._id}/vote`, { userId, voteType });
+        const response = await axios.post(`${import.meta.env.VITE_API_BASE_URL}/api/posts/${post._id}/vote`, { userId, voteType });
         // Optimistically update the UI, then set the real state
         const alreadyUpvoted = post.upvotes.includes(userId);
         const alreadyDownvoted = post.downvotes.includes(userId);
@@ -80,7 +80,7 @@ export function PostDetailPage({ postId, userId, onBack }: PostDetailPageProps) 
   const handleCommentSubmit = async () => {
     if (!newComment.trim() || !post) return;
     try {
-        const response = await axios.post(`http://localhost:5000/api/posts/${post._id}/comments`, {
+        const response = await axios.post(`${import.meta.env.VITE_API_BASE_URL}/api/posts/${post._id}/comments`, {
             text: newComment,
             authorId: userId,
         });
