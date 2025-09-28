@@ -60,6 +60,85 @@ export function FunzonePage({ onBack, onNavigate, onPlayGame }: FunzonePageProps
     }
   };
 
+  // Game data for all pages
+  // const allGames: Game[] = [
+  //   // Page 1
+  //   {
+  //     id: "memory-flip",
+  //     name: "memory-flip",
+  //     difficulty: "Medium",
+  //     mood: "🤔",
+  //     image: "https://images.unsplash.com/photo-1721333091271-2c488efcdc2e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtZW1vcnklMjBjYXJkJTIwZ2FtZXxlbnwxfHx8fDE3NTgwMTAxOTB8MA&ixlib=rb-4.1.0&q=80&w=1080",
+  //     description: "Test and improve your memory with fun card matching"
+  //   },
+  //   {
+  //     id: "memory-1",
+  //     name: "Memory Cards",
+  //     difficulty: "Medium",
+  //     mood: "🤔",
+  //     image: "https://images.unsplash.com/photo-1721333091271-2c488efcdc2e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtZW1vcnklMjBjYXJkJTIwZ2FtZXxlbnwxfHx8fDE3NTgwMTAxOTB8MA&ixlib=rb-4.1.0&q=80&w=1080",
+  //     description: "Test and improve your memory with fun card matching"
+  //   },
+  //   {
+  //     id: "meditation-1",
+  //     name: "Zen Garden",
+  //     difficulty: "Easy",
+  //     mood: "🧘",
+  //     image: "https://images.unsplash.com/photo-1655970580622-4a547789c850?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtZWRpdGF0aW9uJTIwcmVsYXhpbmclMjBnYW1lfGVufDF8fHx8MTc1ODAxMDE5NHww&ixlib=rb-4.1.0&q=80&w=1080",
+  //     description: "Create beautiful patterns while practicing mindfulness"
+  //   },
+  //   // Page 2
+  //   {
+  //     id: "word-1",
+  //     name: "Word Search",
+  //     difficulty: "Medium",
+  //     mood: "💭",
+  //     image: "https://images.unsplash.com/photo-1552321046-a54642dc0cb8?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx3b3JkJTIwc2VhcmNoJTIwZ2FtZXxlbnwxfHx8fDE3NTgwMTAxOTh8MA&ixlib=rb-4.1.0&q=80&w=1080",
+  //     description: "Find hidden words to boost focus and concentration"
+  //   },
+  //   {
+  //     id: "brain-1",
+  //     name: "Brain Training",
+  //     difficulty: "Hard",
+  //     mood: "🎯",
+  //     image: "https://images.unsplash.com/photo-1737719435022-7329822e7bd6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxicmFpbiUyMHRyYWluaW5nJTIwZ2FtZXxlbnwxfHx8fDE3NTgwMTAyMDR8MA&ixlib=rb-4.1.0&q=80&w=1080",
+  //     description: "Challenge your mind with cognitive exercises"
+  //   },
+  //   {
+  //     id: "color-therapy-1",
+  //     name: "Color Therapy",
+  //     difficulty: "Easy",
+  //     mood: "😌",
+  //     image: "https://images.unsplash.com/photo-1581273154768-0a9a16887d2a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjb2xvciUyMHRoZXJhcHklMjBnYW1lfGVufDF8fHx8MTc1ODAxMDIwOHww&ixlib=rb-4.1.0&q=80&w=1080",
+  //     description: "Explore colors to enhance your emotional well-being"
+  //   },
+  //   // Page 3
+  //   {
+  //     id: "breathing-1",
+  //     name: "Breathing Guide",
+  //     difficulty: "Easy",
+  //     mood: "🧘",
+  //     image: "https://images.unsplash.com/photo-1507120410856-1f35574c3b45?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxicmVhdGhpbmclMjBleGVyY2lzZSUyMGdhbWV8ZW58MXx8fHwxNzU4MDEwMjExfDA&ixlib=rb-4.1.0&q=80&w=1080",
+  //     description: "Practice mindful breathing exercises for relaxation"
+  //   },
+  //   {
+  //     id: "sudoku-1",
+  //     name: "Number Sudoku",
+  //     difficulty: "Hard",
+  //     mood: "🤔",
+  //     image: "https://images.unsplash.com/photo-1676653323490-6bf1dcd695f4?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxzdWRva3UlMjBudW1iZXIlMjBnYW1lfGVufDF8fHx8MTc1ODAxMDIxNnww&ixlib=rb-4.1.0&q=80&w=1080",
+  //     description: "Solve number puzzles to improve logical thinking"
+  //   },
+  //   {
+  //     id: "pattern-1",
+  //     name: "Pattern Match",
+  //     difficulty: "Medium",
+  //     mood: "🎯",
+  //     image: "https://images.unsplash.com/photo-1723283207288-2bcb590f136c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxwYXR0ZXJuJTIwbWF0Y2hpbmclMjBnYW1lfGVufDF8fHx8MTc1ODAxMDIyMHww&ixlib=rb-4.1.0&q=80&w=1080",
+  //     description: "Identify and match patterns to enhance visual skills"
+  //   }
+  // ];
+
   const gamesPerPage = 3;
   const totalPages = Math.ceil(allGames.length / gamesPerPage);
   

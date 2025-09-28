@@ -1,3 +1,425 @@
+// import { Button } from "./ui/button";
+// import { Calendar } from "./ui/calendar";
+// import {
+//   Dialog,
+//   DialogContent,
+//   DialogHeader,
+//   DialogTitle,
+// } from "./ui/dialog";
+// import { ArrowLeft } from "lucide-react";
+// import { useState } from "react";
+// import { useTheme } from "./ThemeProvider";
+// import { SharedNavigation } from "./SharedNavigation";
+
+// interface MemoirPageProps {
+//   onBack: () => void;
+//   onNavigate: (page: string) => void;
+// }
+
+// interface DiaryEntry {
+//   date: string;
+//   title: string;
+//   content: string;
+//   mood: string;
+// }
+
+// export function MemoirPage({
+//   onBack,
+//   onNavigate,
+// }: MemoirPageProps) {
+//   const { selectedColor } = useTheme();
+//   const [showCalendar, setShowCalendar] = useState(false);
+//   const [selectedDate, setSelectedDate] = useState<
+//     Date | undefined
+//   >();
+//   const [showEntry, setShowEntry] = useState(false);
+//   const [showNewEntry, setShowNewEntry] = useState(false);
+//   const [selectedEntry, setSelectedEntry] =
+//     useState<DiaryEntry | null>(null);
+
+//   // Mock diary entries
+//   const diaryEntries: DiaryEntry[] = [
+//     {
+//       date: "2024-01-15",
+//       title: "A Good Day",
+//       content:
+//         "Today was really nice. I felt calm and peaceful. Had a great conversation with my friend and watched a beautiful sunset.",
+//       mood: "😊",
+//     },
+//     {
+//       date: "2024-01-10",
+//       title: "Feeling Anxious",
+//       content:
+//         "Work was overwhelming today. I felt anxious about the upcoming presentation. Need to practice more self-care.",
+//       mood: "😰",
+//     },
+//   ];
+
+//   const handleDateSelect = (date: Date | undefined) => {
+//     if (date) {
+//       setSelectedDate(date);
+//       const dateString = date.toISOString().split("T")[0];
+//       const entry = diaryEntries.find(
+//         (e) => e.date === dateString,
+//       );
+
+//       if (entry) {
+//         setSelectedEntry(entry);
+//         setShowEntry(true);
+//       } else {
+//         setSelectedEntry(null);
+//         setShowEntry(true);
+//       }
+//       setShowCalendar(false);
+//     }
+//   };
+
+//   const handleNewEntry = () => {
+//     setShowNewEntry(true);
+//   };
+
+//   return (
+//     <div className="min-h-screen bg-white text-black">
+//       {/* Header */}
+//       <header className="flex items-center justify-between p-4">
+//         <div className="flex items-center space-x-2">
+//           <Button variant="ghost" size="sm" onClick={onBack}>
+//             <ArrowLeft className="w-5 h-5" />
+//           </Button>
+//           <div
+//             className="w-8 h-8 rounded-full flex items-center justify-center ml-2"
+//             style={{ backgroundColor: selectedColor }}
+//           >
+//             <span className="text-white text-sm">M</span>
+//           </div>
+//           <span className="text-sm">Memoir</span>
+//         </div>
+//         <SharedNavigation
+//           onNavigate={onNavigate}
+//           currentPage="memoir"
+//         />
+//       </header>
+
+//       {/* Main Content */}
+//       <main className="flex items-center justify-center min-h-[calc(100vh-80px)] p-6">
+//         <div className="text-center space-y-8 max-w-md">
+//           {/* Image above Previous Entries button */}
+//           <div className="w-full h-48 mb-6">
+//             <img
+//               src="https://i.pinimg.com/736x/48/31/f4/4831f4a6393223f9de26be144594e2a4.jpg"
+//               alt="Diary illustration"
+//               className="w-full h-full object-cover rounded-lg"
+//             />
+//           </div>
+
+//           {/* Buttons */}
+//           <div className="space-y-4">
+//             <Button
+//               onClick={() => setShowCalendar(true)}
+//               className="w-full py-4 text-white rounded-xl"
+//               style={{ backgroundColor: selectedColor }}
+//             >
+//               Previous Entries
+//             </Button>
+
+//             <Button
+//               onClick={handleNewEntry}
+//               variant="outline"
+//               className="w-full py-4 rounded-xl border-2"
+//               style={{
+//                 borderColor: selectedColor,
+//                 color: selectedColor,
+//               }}
+//             >
+//               New Entry
+//             </Button>
+//           </div>
+
+//           {/* Caption about diary importance */}
+//           <div className="text-sm text-gray-600 leading-relaxed max-w-sm mx-auto">
+//             <p>
+//               "Writing in a diary helps process emotions, reduce
+//               stress, and track personal growth. It's a safe
+//               space to express your thoughts and feelings
+//               without judgment."
+//             </p>
+//           </div>
+//         </div>
+//       </main>
+
+//       {/* Calendar Modal */}
+//       <Dialog
+//         open={showCalendar}
+//         onOpenChange={setShowCalendar}
+//       >
+//         <DialogContent className="sm:max-w-md">
+//           <DialogHeader>
+//             <DialogTitle>Select a Date</DialogTitle>
+//           </DialogHeader>
+//           <div className="flex justify-center">
+//             <Calendar
+//               mode="single"
+//               selected={selectedDate}
+//               onSelect={handleDateSelect}
+//               className="rounded-md border"
+//             />
+//           </div>
+//         </DialogContent>
+//       </Dialog>
+
+//       {/* Entry Display Modal */}
+//       <Dialog open={showEntry} onOpenChange={setShowEntry}>
+//         <DialogContent className="sm:max-w-lg">
+//           {selectedEntry ? (
+//             <div className="space-y-4">
+//               <DialogHeader>
+//                 <DialogTitle className="flex items-center space-x-2">
+//                   <span>{selectedEntry.mood}</span>
+//                   <span>{selectedEntry.title}</span>
+//                 </DialogTitle>
+//               </DialogHeader>
+//               <div className="space-y-3">
+//                 <p className="text-sm text-gray-600">
+//                   {selectedDate?.toLocaleDateString("en-US", {
+//                     weekday: "long",
+//                     year: "numeric",
+//                     month: "long",
+//                     day: "numeric",
+//                   })}
+//                 </p>
+//                 <p className="text-gray-800 leading-relaxed">
+//                   {selectedEntry.content}
+//                 </p>
+//               </div>
+//             </div>
+//           ) : (
+//             <div
+//               className="text-center p-8 rounded-lg"
+//               style={{
+//                 backgroundColor: selectedColor + "10",
+//                 backdropFilter: "blur(10px)",
+//                 border: `1px solid ${selectedColor}20`,
+//               }}
+//             >
+//               <div className="space-y-3">
+//                 <div
+//                   className="w-12 h-12 rounded-full mx-auto flex items-center justify-center"
+//                   style={{
+//                     backgroundColor: selectedColor + "20",
+//                   }}
+//                 >
+//                   <span className="text-2xl">📝</span>
+//                 </div>
+//                 <h3 className="text-lg">No Entry Found</h3>
+//                 <p className="text-gray-600 text-sm">
+//                   Sorry, there's no diary entry for{" "}
+//                   {selectedDate?.toLocaleDateString("en-US", {
+//                     month: "long",
+//                     day: "numeric",
+//                     year: "numeric",
+//                   })}
+//                 </p>
+//                 <Button
+//                   onClick={() => {
+//                     setShowEntry(false);
+//                     setShowNewEntry(true);
+//                   }}
+//                   className="mt-4 text-white"
+//                   style={{ backgroundColor: selectedColor }}
+//                 >
+//                   Create Entry for This Date
+//                 </Button>
+//               </div>
+//             </div>
+//           )}
+//         </DialogContent>
+//       </Dialog>
+
+//       {/* New Entry Modal */}
+//       {showNewEntry && (
+//         <NewEntryPage
+//           onBack={() => setShowNewEntry(false)}
+//           selectedColor={selectedColor}
+//           selectedDate={selectedDate}
+//         />
+//       )}
+//     </div>
+//   );
+// }
+
+// // New Entry Component with 20-60-20 layout
+// interface NewEntryPageProps {
+//   onBack: () => void;
+//   selectedColor: string;
+//   selectedDate?: Date;
+// }
+
+// function NewEntryPage({
+//   onBack,
+//   selectedColor,
+//   selectedDate,
+// }: NewEntryPageProps) {
+//   const [title, setTitle] = useState("");
+//   const [content, setContent] = useState("");
+//   const [selectedMood, setSelectedMood] = useState("");
+//   const [entryDate, setEntryDate] = useState(
+//     selectedDate || new Date(),
+//   );
+
+//   const moods = ["😊", "😢", "😰", "😴", "😡", "🤔"];
+
+//   const handleFinish = () => {
+//     // Here you would save the entry
+//     console.log("Saving entry:", {
+//       title,
+//       content,
+//       mood: selectedMood,
+//       date: entryDate,
+//     });
+//     onBack();
+//   };
+
+//   // Auto-save when user clicks outside or after delay
+//   const handleAutoSave = () => {
+//     if (title.trim() || content.trim() || selectedMood) {
+//       handleFinish();
+//     } else {
+//       onBack();
+//     }
+//   };
+
+//   return (
+//     <div className="fixed inset-0 bg-white z-50 overflow-hidden">
+//       {/* Back Button */}
+//       <div className="absolute top-4 left-4 z-10">
+//         <Button
+//           variant="ghost"
+//           size="sm"
+//           onClick={onBack}
+//           className="p-2 hover:bg-gray-100"
+//         >
+//           <ArrowLeft className="w-5 h-5" />
+//         </Button>
+//       </div>
+
+//       {/* 20-60-20 Layout */}
+//       <div className="flex h-screen">
+//         {/* Left spacer - 20% */}
+//         <div className="w-1/5 flex items-start justify-end pt-6 pr-4">
+//           {/* Paper clip icon */}
+//           <div
+//             className="w-8 h-8 rounded-full flex items-center justify-center rotate-45"
+//             style={{ backgroundColor: selectedColor + "30" }}
+//           >
+//             <span className="text-lg">📎</span>
+//           </div>
+//         </div>
+
+//         {/* Main content - 60% */}
+//         <div className="w-3/5 flex flex-col py-6 h-full">
+//           {/* Entry Form */}
+//           <div className="flex flex-col h-full space-y-6">
+//             {/* Title */}
+//             <div>
+//               <label className="block text-sm text-gray-600 mb-2">
+//                 Title:
+//               </label>
+//               <input
+//                 type="text"
+//                 value={title}
+//                 onChange={(e) => setTitle(e.target.value)}
+//                 className="w-full border-0 border-b-2 border-gray-300 bg-transparent px-0 py-2 focus:outline-none focus:ring-0"
+//                 style={{ borderBottomColor: selectedColor }}
+//                 placeholder="Enter your title..."
+//               />
+//             </div>
+
+//             {/* Date */}
+//             <div>
+//               <label className="block text-sm text-gray-600 mb-2">
+//                 Date:
+//               </label>
+//               <input
+//                 type="date"
+//                 value={entryDate.toISOString().split("T")[0]}
+//                 onChange={(e) =>
+//                   setEntryDate(new Date(e.target.value))
+//                 }
+//                 className="border-0 border-b-2 border-gray-300 bg-transparent px-0 py-2 focus:outline-none focus:ring-0"
+//                 style={{ borderBottomColor: selectedColor }}
+//               />
+//             </div>
+
+//             {/* Mood */}
+//             <div>
+//               <label className="block text-sm text-gray-600 mb-3">
+//                 Mood:
+//               </label>
+//               <div className="flex space-x-3">
+//                 {moods.map((mood) => (
+//                   <button
+//                     key={mood}
+//                     onClick={() => setSelectedMood(mood)}
+//                     className={`w-12 h-12 text-2xl rounded-full transition-all ${
+//                       selectedMood === mood
+//                         ? "scale-110"
+//                         : "hover:scale-105"
+//                     }`}
+//                     style={{
+//                       backgroundColor:
+//                         selectedMood === mood
+//                           ? selectedColor + "20"
+//                           : "transparent",
+//                       border:
+//                         selectedMood === mood
+//                           ? `2px solid ${selectedColor}`
+//                           : "2px solid transparent",
+//                     }}
+//                   >
+//                     {mood}
+//                   </button>
+//                 ))}
+//               </div>
+//             </div>
+
+//             {/* Writing Area - Scrollable */}
+//             <div className="flex-1 flex flex-col min-h-0">
+//               <label className="block text-sm text-gray-600 mb-3 flex-shrink-0">
+//                 Your thoughts:
+//               </label>
+//               <textarea
+//                 value={content}
+//                 onChange={(e) => setContent(e.target.value)}
+//                 className="flex-1 w-full border border-gray-300 rounded-lg p-4 focus:outline-none focus:ring-0 resize-none overflow-y-auto"
+//                 style={{ borderColor: selectedColor }}
+//                 placeholder="Write your thoughts here..."
+//               />
+//             </div>
+
+//             {/* Finish Button */}
+//             <div className="flex-shrink-0 pt-4">
+//               <Button
+//                 onClick={handleFinish}
+//                 className="w-full text-white py-3"
+//                 style={{ backgroundColor: selectedColor }}
+//                 disabled={
+//                   !title.trim() ||
+//                   !content.trim() ||
+//                   !selectedMood
+//                 }
+//               >
+//                 Finish Entry
+//               </Button>
+//             </div>
+//           </div>
+//         </div>
+
+//         {/* Right spacer - 20% */}
+//         <div className="w-1/5"></div>
+//       </div>
+//     </div>
+//   );
+// }
 import { Button } from "./ui/button";
 import { Calendar } from "./ui/calendar";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "./ui/dialog";
@@ -33,7 +455,7 @@ export function MemoirPage({ onBack, onNavigate, userId }: MemoirPageProps) {
 
   useEffect(() => {
     if (userId) {
-      axios.get(`${import.meta.env.VITE_API_BASE_URL}/api/memoir/entries/${userId}`)
+      axios.get(`http://localhost:5000/api/memoir/entries/${userId}`)
         .then(response => { setDiaryEntries(response.data); })
         .catch(error => { console.error("Failed to fetch diary entries:", error); });
     }
@@ -158,7 +580,7 @@ function NewEntryPage({ userId, onBack, onEntrySaved, selectedColor, selectedDat
     const entryData = { userId, date: entryDate.toISOString(), title, content, mood: selectedMood };
     try {
       // Use the new smart /save endpoint for both creating and updating
-      const response = await axios.post(`${import.meta.env.VITE_API_BASE_URL}/api/memoir/save`, entryData);
+      const response = await axios.post('http://localhost:5000/api/memoir/save', entryData);
       onEntrySaved(response.data.entry);
     } catch (error) {
       console.error("Failed to save diary entry:", error);

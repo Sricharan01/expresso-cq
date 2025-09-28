@@ -25,7 +25,7 @@ export function LoginPage({ onBack, onSignupComplete, onLoginComplete, onNavigat
     e.preventDefault();
     if (mode === 'login') {
       try {
-        const response = await axios.post(`${import.meta.env.VITE_API_BASE_URL}/api/auth/login`, {
+        const response = await axios.post('http://localhost:5000/api/auth/login', {
           email: formData.email,
           password: formData.password,
         });
@@ -35,7 +35,7 @@ export function LoginPage({ onBack, onSignupComplete, onLoginComplete, onNavigat
       }
     } else {
       try {
-        const response = await axios.post(`${import.meta.env.VITE_API_BASE_URL}/api/auth/signup`, {
+        const response = await axios.post('http://localhost:5000/api/auth/signup', {
           username: formData.username,
           email: formData.email,
           password: formData.password,

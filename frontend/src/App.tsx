@@ -86,7 +86,7 @@ export default function App() {
     setUserId(user.id);
     setIsAuthenticated(true);
 
-    axios.get(`${import.meta.env.VITE_API_BASE_URL}/api/user/${user.id}`).then(response => {
+    axios.get(`http://localhost:5000/api/user/${user.id}`).then(response => {
       const userData = response.data;
       const completed = userData.hasCompletedQuestionnaire || false;
       const userNickname = userData.nickname || user.username;
